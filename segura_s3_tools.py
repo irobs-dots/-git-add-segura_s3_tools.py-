@@ -242,7 +242,9 @@ class SeguraS3Client:
             )
             import io
             buf = io.BytesIO()
-            self._client.download_fileobj(bucket, key, buf, Config=self._transfer_config)
+            self._client.download_fileobj(
+                Bucket=bucket, Key=key, Fileobj=buf, Config=self._transfer_config
+            )
             server_sha256 = hashlib.sha256(buf.getvalue()).hexdigest()
         if server_sha256 != expected_sha256:
             raise ValueError(
